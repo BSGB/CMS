@@ -24,9 +24,16 @@
       $commentStatus = $row['comment_status'];
       $commentDate = $row['comment_date'];
 
+      $query_bis = "SELECT * FROM posts WHERE post_id = {$commentPostId}";
+      $result_bis = $connection->query($query_bis);
+      checkQueryExecution($result_bis);
+      while($row_bis = $result_bis->fetch_assoc()){
+        $commentPost = $row_bis['post_title'];
+      }
+
       echo "<tr>";
       echo "<td>{$commentId}</td>";
-      echo "<td>{$commentPostId}</td>";
+      echo "<td>{$commentPost}</td>";
       echo "<td>{$commentAuthor}</td>";
       echo "<td>{$commentContent}</td>";
       echo "<td>{$commentEmail}</td>";
@@ -34,6 +41,7 @@
       echo "<td>{$commentDate}</td>";
       echo "<td><a href='comments.php?source=approve_comment&approve_id={$commentId}'>Approve</a></td>";
       echo "<td><a href='comments.php?source=unapprove_comment&unapprove_id={$commentId}'>Unapprove</a></td>";
+      echo "<td><a href='comments.php?source=edit_comment&edit_id={$commentId}'>Edit</a></td>";
       echo "<td><a href='comments.php?source=delete_comment&delete_id={$commentId}'>Delete</a></td>";
       echo "</tr>";
     }

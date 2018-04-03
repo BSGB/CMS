@@ -57,36 +57,70 @@ $postDate = date('l jS F Y', strtotime($postDate));
 
             <!-- Blog Comments -->
 
+            <?php
+            if(isset($_POST['create_comment'])){
+                $commentAuthor = $_POST['comment_author'];
+                $commentEmail = $_POST['comment_email'];
+                $commentContent = $_POST['comment_content'];
+                $query = "INSERT INTO comments(comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
+                $query .= "VALUES({$postId}, '{$commentAuthor}', '{$commentEmail}', '{$commentContent}', 'approved', now())";
+                $result = $connection->query($query);
+                checkQueryExecution($result);
+            }
+            ?>
+
             <!-- Comments Form -->
             <div class="well">
                 <h4>Leave a Comment:</h4>
-                <form role="form">
+                <form role="form" method="POST" action="">
                     <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
+                        <label for="comment_author">Author</label>
+                        <input type="text" class="form-control" name="comment_author">
+                    </div>                    
+                    <div class="form-group">
+                        <label for="comment_email">E-mail</label>
+                        <input type="email" class="form-control" name="comment_email">
+                    </div>                  
+                    <div class="form-group">
+                        <label for="comment_content">Comment</label>  
+                        <textarea class="form-control" rows="3" name="comment_content"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="create_comment">Submit</button>
                 </form>
             </div>
 
             <hr>
 
             <!-- Posted Comments -->
-
-            <!-- Comment -->
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">Start Bootstrap
-                        <small>August 25, 2014 at 9:30 PM</small>
-                    </h4>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <?php
+            $query = "SELECT * FROM comments WHERE comment_post_id={$postId} AND comment_status='approved'";
+            $result = $connection->query($query);
+            checkQueryExecution($result);
+            while($row = $result->fetch_assoc()){
+                $commentAuthor = $row['comment_author'];
+                $commentEmail = $row['comment_email'];
+                $commentContent = $row['comment_content'];
+                $commentDate = $row['comment_date'];
+                $commentDate = date('l jS F Y', strtotime($commentDate));
+                ?>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><?php echo $commentAuthor ?>
+                            <small><?php echo $commentDate ?></small>
+                        </h4>
+                        <?php echo $commentContent ?>
+                    </div>
                 </div>
-            </div>
+                <?php }
+                ?>
 
-            <!-- Comment -->
-            <div class="media">
+                <!-- Comment -->
+
+                <!-- Comment Nested-->
+<!--             <div class="media">
                 <a class="pull-left" href="#">
                     <img class="media-object" src="http://placehold.it/64x64" alt="">
                 </a>
@@ -95,7 +129,7 @@ $postDate = date('l jS F Y', strtotime($postDate));
                         <small>August 25, 2014 at 9:30 PM</small>
                     </h4>
                     Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    <!-- Nested Comment -->
+                    Nested Comment
                     <div class="media">
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -107,9 +141,9 @@ $postDate = date('l jS F Y', strtotime($postDate));
                             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                         </div>
                     </div>
-                    <!-- End Nested Comment -->
+                    End Nested Comment
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
