@@ -23,10 +23,10 @@
                         }
                         switch($source){
                           case 'approve_comment':
-                          // include 'includes/add_post.php';
+                          include 'includes/approve_comment.php';
                           break;
                           case 'unapprove_comment':
-                          // include 'includes/delete_post.php';
+                          include 'includes/unapprove_comment.php';
                           break;
                           case 'delete_comment':
                           include 'includes/delete_comment.php';
