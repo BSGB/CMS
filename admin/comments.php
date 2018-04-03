@@ -29,7 +29,7 @@
                           // include 'includes/delete_post.php';
                           break;
                           case 'delete_comment':
-                          // include 'includes/edit_post.php';
+                          include 'includes/delete_comment.php';
                           break;
                           default:
                           include 'includes/view_all_comments.php';

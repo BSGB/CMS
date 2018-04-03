@@ -33,7 +33,7 @@
 
       echo "<tr>";
       echo "<td>{$commentId}</td>";
-      echo "<td>{$commentPost}</td>";
+      echo "<td><a href='../post.php?post_id={$commentPostId}'>{$commentPost}</a></td>";
       echo "<td>{$commentAuthor}</td>";
       echo "<td>{$commentContent}</td>";
       echo "<td>{$commentEmail}</td>";
@@ -41,7 +41,6 @@
       echo "<td>{$commentDate}</td>";
       echo "<td><a href='comments.php?source=approve_comment&approve_id={$commentId}'>Approve</a></td>";
       echo "<td><a href='comments.php?source=unapprove_comment&unapprove_id={$commentId}'>Unapprove</a></td>";
-      echo "<td><a href='comments.php?source=edit_comment&edit_id={$commentId}'>Edit</a></td>";
       echo "<td><a href='comments.php?source=delete_comment&delete_id={$commentId}'>Delete</a></td>";
       echo "</tr>";
     }
