@@ -10,14 +10,13 @@ if(isset($_POST['create_post'])){
 
   $postTags = $_POST['post_tags'];
   $postContent = $_POST['post_content'];
-  $postCount = 4;
 
   move_uploaded_file($postImageTemp, "../images/{$postImage}");
 
   $query = "INSERT INTO posts(post_title, post_author, post_category_id,
-    post_status, post_image, post_tags, post_content, post_date, post_comment_count) ";
+    post_status, post_image, post_tags, post_content, post_date) ";
   $query .= "VALUES('{$postTitle}', '{$postAuthor}', {$postCat},
-  '{$postStatus}', '{$postImage}', '{$postTags}', '{$postContent}', now(), '{$postCount}')";
+  '{$postStatus}', '{$postImage}', '{$postTags}', '{$postContent}', now())";
 
   $result = $connection->query($query);
   checkQueryExecution($result);

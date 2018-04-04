@@ -63,10 +63,16 @@ $postDate = date('l jS F Y', strtotime($postDate));
                 $commentEmail = $_POST['comment_email'];
                 $commentContent = $_POST['comment_content'];
                 $query = "INSERT INTO comments(comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
-                $query .= "VALUES({$postId}, '{$commentAuthor}', '{$commentEmail}', '{$commentContent}', 'approved', now())";
+                $query .= "VALUES({$postId}, '{$commentAuthor}', '{$commentEmail}', '{$commentContent}', 'unapproved', now())";
+                $result = $connection->query($query);
+                checkQueryExecution($result);
+                
+                $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
+                $query .= "WHERE post_id = {$postId}";
                 $result = $connection->query($query);
                 checkQueryExecution($result);
             }
+
             ?>
 
             <!-- Comments Form -->
@@ -98,7 +104,6 @@ $postDate = date('l jS F Y', strtotime($postDate));
             checkQueryExecution($result);
             while($row = $result->fetch_assoc()){
                 $commentAuthor = $row['comment_author'];
-                $commentEmail = $row['comment_email'];
                 $commentContent = $row['comment_content'];
                 $commentDate = $row['comment_date'];
                 $commentDate = date('l jS F Y', strtotime($commentDate));
