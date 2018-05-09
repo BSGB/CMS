@@ -26,7 +26,7 @@
                           include 'includes/add_user.php';
                           break;
                           case 'edit_user':
-                          include 'includes/unapprove_comment.php';
+                          // include 'includes/unapprove_comment.php';
                           break;
                           default:
                           include 'includes/view_all_users.php';
