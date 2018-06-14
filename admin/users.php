@@ -23,11 +23,17 @@
                         }
                         switch($source){
                           case 'add_user':
-                          include 'includes/add_user.php';
-                          break;
+                            include 'includes/add_user.php';
+                            break;
                           case 'edit_user':
-                          // include 'includes/unapprove_comment.php';
-                          break;
+                            include 'includes/edit_user.php';
+                            break;
+                          case 'delete_user':
+                            include 'includes/delete_user.php';
+                            break;
+                          case 'switch_user_role':
+                            include 'includes/switch_user_role.php';
+                            break;
                           default:
                           include 'includes/view_all_users.php';
                         }

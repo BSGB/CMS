@@ -37,6 +37,8 @@
       echo "<td>{$userEmail}</td>";
       echo "<td>{$userRole}</td>";
       echo "<td>{$userCrt}</td>";
+      echo "<td><a href='users.php?source=delete_user&delete_id={$userId}'>Delete</a></td>";
+      echo "<td><a href='users.php?source=switch_user_role&switch_id={$userId}'>Switch Role</a></td>";
       echo "<td><a href='users.php?source=edit_user&edit_id={$userId}'>Edit</a></td>";
       echo "</tr>";
     }
