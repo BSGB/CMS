@@ -13,7 +13,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Welcome to Admin
-                            <small>Admin</small>
+                            <small><?php echo $_SESSION['username'] ?></small>
                         </h1>
                         <div class="col-xs-6">
                           <form class="" action="" method="post">
