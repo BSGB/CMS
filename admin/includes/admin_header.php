@@ -27,10 +27,13 @@ if(!isset($_SESSION['user_role'])){
 
     <!-- Custom CSS -->
     <link href="css/inner.css" rel="stylesheet" type="text/css">
-
+    <link href="css/posts.css" rel="stylesheet" type="text/css">
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/classic/ckeditor.js"></script>
 </head>
 
 <body>

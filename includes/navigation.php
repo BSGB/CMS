@@ -23,9 +23,23 @@
                 echo "<li><a href='category.php?cat_id={$catId}'>{$catTitle}</a></li>";
               }
                ?>
+               <li>
+                   <a href="registration.php">Register</a>
+               </li>
                 <li>
                     <a href="admin/index.php">Admin</a>
                 </li>
+
+
+                <?php
+                if(isset($_SESSION['user_role'])){
+                  if(isset($_GET['post_id']) && $_SESSION['user_role'] == 'admin'){
+                    echo "<li>
+                    <a href='admin/posts.php?source=edit_post&edit_id={$_GET['post_id']}'>Edit Post</a>
+                    </li>";
+                  }
+                }
+                 ?>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

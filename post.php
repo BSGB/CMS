@@ -59,18 +59,23 @@ $postDate = date('l jS F Y', strtotime($postDate));
 
             <?php
             if(isset($_POST['create_comment'])){
-                $commentAuthor = $_POST['comment_author'];
-                $commentEmail = $_POST['comment_email'];
-                $commentContent = $_POST['comment_content'];
+              $commentAuthor = $_POST['comment_author'];
+              $commentEmail = $_POST['comment_email'];
+              $commentContent = $_POST['comment_content'];
+
+              if(!empty($commentAuthor) && !empty($commentEmail) && !empty($commentContent)){
                 $query = "INSERT INTO comments(comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
                 $query .= "VALUES({$postId}, '{$commentAuthor}', '{$commentEmail}', '{$commentContent}', 'unapproved', now())";
                 $result = $connection->query($query);
                 checkQueryExecution($result);
-                
+
                 $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
                 $query .= "WHERE post_id = {$postId}";
                 $result = $connection->query($query);
                 checkQueryExecution($result);
+              } else {
+                echo "<p class='bg-danger'>Fields cannot be empty!</p>";
+              }
             }
 
             ?>
@@ -82,13 +87,13 @@ $postDate = date('l jS F Y', strtotime($postDate));
                     <div class="form-group">
                         <label for="comment_author">Author</label>
                         <input type="text" class="form-control" name="comment_author">
-                    </div>                    
+                    </div>
                     <div class="form-group">
                         <label for="comment_email">E-mail</label>
                         <input type="email" class="form-control" name="comment_email">
-                    </div>                  
+                    </div>
                     <div class="form-group">
-                        <label for="comment_content">Comment</label>  
+                        <label for="comment_content">Comment</label>
                         <textarea class="form-control" rows="3" name="comment_content"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" name="create_comment">Add Comment</button>

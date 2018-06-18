@@ -45,7 +45,11 @@ if(isset($_POST['update_post'])){
 
   $result = $connection->query($query);
   checkQueryExecution($result);
-  header("Location: posts.php");
+  echo "<p class='bg-success'>Post Updated.
+  <a href='../post.php?post_id={$editId}'>View Post</a>
+  or
+  <a href='posts.php'>Edit More Posts</a>
+  </p>";
 }
  ?>
 
@@ -83,7 +87,20 @@ if(isset($_POST['update_post'])){
 
   <div class="form-group">
     <label for="post_status">Status</label>
-    <input type="text" name="post_status" class="form-control" value="<?php echo $postStatus; ?>">
+    <select class="form-control form-control-sm" name="post_status">
+      <?php
+      if($postStatus == 'draft'){
+      echo '<option value="draft" selected>Draft</option>';
+      } else {
+      echo '<option value="draft">Draft</option>';
+      }
+      if($postStatus == 'published'){
+      echo '<option value="published" selected>Published</option>';
+      } else {
+      echo '<option value="published">Published</option>';
+      }
+      ?>
+    </select>
   </div>
 
   <div class="form-group">
@@ -102,7 +119,7 @@ if(isset($_POST['update_post'])){
 
   <div class="form-group">
     <label for="post_content">Content</label>
-    <textarea type="text" name="post_content" class="form-control" cols="30" rows="10"><?php echo $postContent; ?></textarea>
+    <textarea type="text" name="post_content" class="form-control" cols="30" rows="10" id="body"><?php echo $postContent; ?></textarea>
   </div>
 
   <div class="form-group">

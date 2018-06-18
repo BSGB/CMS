@@ -22,6 +22,13 @@ if(isset($_POST['update_user'])){
   $userEmail = $_POST['user_email'];
   $userRole = $_POST['user_role'];
 
+  $query = "SELECT randSalt FROM users";
+  $result = $connection->query($query);
+  checkQueryExecution($result);
+  $row = $result->fetch_assoc();
+  $salt = $row['randSalt'];
+  $userPassword = crypt($userPassword, $salt);
+
   $query = "UPDATE users SET ";
   $query .= "username = '{$username}', ";
   $query .= "user_password = '{$userPassword}', ";
@@ -33,7 +40,8 @@ if(isset($_POST['update_user'])){
 
   $result = $connection->query($query);
   checkQueryExecution($result);
-  header("Location: users.php");
+  echo "<p class='bg-success'>User Updated.
+  <a href='users.php'>View Users</a></p>";
 }
  ?>
 

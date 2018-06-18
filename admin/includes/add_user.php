@@ -14,7 +14,9 @@ if(isset($_POST['create_user'])){
 
   $result = $connection->query($query);
   checkQueryExecution($result);
-  header("Location: users.php");
+  echo "<p class='bg-success'>User Created.
+  <a href='users.php'>View Users</a>
+  </p>";
 }
  ?>
 

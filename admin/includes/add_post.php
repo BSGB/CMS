@@ -20,7 +20,12 @@ if(isset($_POST['create_post'])){
 
   $result = $connection->query($query);
   checkQueryExecution($result);
-  header("Location: posts.php");
+  $lastAddedId = $connection->insert_id;
+  echo "<p class='bg-success'>Post Added.
+  <a href='../post.php?post_id={$lastAddedId}'>View Post</a>
+  or
+  <a href='posts.php?source=add_post'>Add More Posts</a>
+  </p>";
 }
  ?>
 
@@ -54,7 +59,10 @@ if(isset($_POST['create_post'])){
 
   <div class="form-group">
     <label for="post_status">Status</label>
-    <input type="text" name="post_status" class="form-control">
+    <select class="form-control form-control-sm" name="post_status">
+      <option value="draft" selected>Draft</option>
+      <option value="published">Published</option>
+    </select>
   </div>
 
   <div class="form-group">
@@ -69,7 +77,7 @@ if(isset($_POST['create_post'])){
 
   <div class="form-group">
     <label for="post_content">Content</label>
-    <textarea type="text" name="post_content" class="form-control" cols="30" rows="10"></textarea>
+    <textarea type="text" name="post_content" class="form-control" cols="30" rows="10" id="body"></textarea>
   </div>
 
   <div class="form-group">

@@ -37,17 +37,21 @@
         <a href="post.php?post_id=<?php echo $postId; ?>"><?php echo $postTitle ?></a>
       </h2>
       <p class="lead">
-        by <a href="index.php"><?php echo $postAuthor ?></a>
+        by <a href="index.php"><?php echo $postAuthor; ?></a>
       </p>
-      <p><span class="glyphicon glyphicon-time"></span> <?php echo $postDate ?></p>
+      <p><span class="glyphicon glyphicon-time"></span> <?php echo $postDate; ?></p>
       <hr>
-      <img class="img-responsive" src="images/<?php echo $postImage ?>" alt="">
+      <a href="post.php?post_id=<?php echo $postId; ?>">
+        <img class="img-responsive" src="images/<?php echo $postImage; ?>" alt="">
+      </a>
       <hr>
       <p><?php echo substr($postContent, 0, 200) . "[...]"; ?></p>
-      <a class="btn btn-primary" href="post.php?post_id=<?php echo $postId; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+      <a class="btn btn-primary" href="post.php?post_id=<?php echo $postId; ?>">Read More
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
 
       <hr>
-      <?php } 
+      <?php }
     }?>
 
     </div>
