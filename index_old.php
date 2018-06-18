@@ -18,32 +18,10 @@
 
       <!-- POSTS -->
       <?php
-      $perPage = 3;
-      if(isset($_GET['page'])){
-        $pageNumber = $_GET['page'];
-      } else {
-        $pageNumber = "";
-      }
-
-      if($pageNumber == "" || $pageNumber == 1){
-        $page1 = 0;
-      } else {
-        $page1 = ($pageNumber * $perPage) - $perPage;
-      }
       $query = "SELECT * FROM posts ";
       $query .= "WHERE post_status = 'published' ";
+      $query .= "ORDER BY post_id DESC";
       $result = $connection->query($query);
-      checkQueryExecution($result);
-      $count = $result->num_rows;
-
-      $count = ceil($count / $perPage);
-
-      $query = "SELECT * FROM posts ";
-      $query .= "WHERE post_status = 'published' ";
-      $query .= "ORDER BY post_id DESC ";
-      $query .= "LIMIT {$page1}, $perPage";
-      $result = $connection->query($query);
-      checkQueryExecution($result);
       if($result->num_rows == 0){
         echo "<h2>NO POSTS</h2>";
       } else {
@@ -83,19 +61,7 @@
 
   </div>
   <!-- /.row -->
-  <ul class="pager">
-    <?php
-      for($i = 1; $i <= $count; $i++){
-        if($pageNumber == "" && $i == 1){
-          echo "<li><a class='link_active' href='index.php?page=1'>1</a></li>";
-        } else if($i == $pageNumber){
-          echo "<li><a class='link_active' href='index.php?page={$i}'>{$i}</a></li>";
-        } else {
-          echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-        }
-      }
-    ?>
-  </ul>
+
   <hr>
 
   <?php include 'includes/footer.php' ?>

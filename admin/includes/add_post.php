@@ -85,3 +85,12 @@ if(isset($_POST['create_post'])){
   </div>
 
 </form>
+<script>
+$(document).ready(function() {
+  ClassicEditor
+      .create( document.querySelector( '#body' ) )
+      .catch( error => {
+          console.error( error );
+      } );
+});
+</script>

@@ -54,7 +54,8 @@ if(isset($_POST['checkBoxArray'])){
       <th>Image</th>
       <th>Status</th>
       <th>Tags</th>
-      <th>Comment Count</th>
+      <th>Comments Count</th>
+      <th>Views Count</th>
     </tr>
   </thead>
   <tbody>
@@ -72,6 +73,7 @@ if(isset($_POST['checkBoxArray'])){
       $postStatus = $row['post_status'];
       $postTags = $row['post_tags'];
       $postCount = $row['post_comment_count'];
+      $postViewsCount = $row['post_views_count'];
 
       $query_bis = "SELECT * FROM categories WHERE cat_id = {$postCat}";
       $result_bis = $connection->query($query_bis);
@@ -96,6 +98,7 @@ if(isset($_POST['checkBoxArray'])){
       echo "<td>{$postStatus}</td>";
       echo "<td>{$postTags}</td>";
       echo "<td>{$postCount}</td>";
+      echo "<td>{$postViewsCount}</td>";
       echo "<td><a href='posts.php?source=delete_post&delete_id={$postId}'>Delete</a></td>";
       echo "<td><a href='posts.php?source=edit_post&edit_id={$postId}'>Edit</a></td>";
       echo "</tr>";

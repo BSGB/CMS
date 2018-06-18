@@ -20,6 +20,7 @@
                 <?php
                 if(isset($_GET['cat_id'])){
                   $postCat = $_GET['cat_id'];
+
                   $query = "SELECT * FROM posts WHERE post_category_id = {$postCat} ORDER BY post_id DESC";
                   $result = $connection->query($query);
                   checkQueryExecution($result);
@@ -43,7 +44,9 @@
                   </p>
                   <p><span class="glyphicon glyphicon-time"></span> <?php echo $postDate; ?></p>
                   <hr>
-                  <img class="img-responsive" src="images/<?php echo $postImage ?>" alt="">
+                  <a href="post.php?post_id=<?php echo $postId; ?>">
+                    <img class="img-responsive" src="images/<?php echo $postImage ?>" alt="">
+                  </a>
                   <hr>
                   <p><?php echo substr($postContent, 0, 200) . "[...]"; ?></p>
                   <a class="btn btn-primary" href="post.php?post_id=<?php echo $postId; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>

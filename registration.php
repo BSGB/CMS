@@ -15,9 +15,7 @@ if(isset($_POST['submit'])){
     $query = "SELECT randSalt FROM users";
     $result = $connection->query($query);
 
-    if(!$result){
-      die("QUERY FAILED" . $connection->error());
-    }
+    checkQueryExecution($result);
 
     $row = $result->fetch_assoc();
     $salt = $row['randSalt'];

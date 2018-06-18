@@ -6,6 +6,9 @@
 <?php
 if(isset($_GET['post_id'])){
   $postId = $_GET['post_id'];
+  $query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = {$postId}";
+  $result = $connection->query($query);
+  checkQueryExecution($result);
   $query = "SELECT * FROM posts WHERE post_id = {$postId}";
   $result = $connection->query($query);
   checkQueryExecution($result);
@@ -17,6 +20,8 @@ if(isset($_GET['post_id'])){
     $postContent = $row['post_content'];
 }
 $postDate = date('l jS F Y', strtotime($postDate));
+} else {
+  header('Location: index.php');
 }
 ?>
 
@@ -35,7 +40,7 @@ $postDate = date('l jS F Y', strtotime($postDate));
 
             <!-- Author -->
             <p class="lead">
-                by <a href="#"><?php echo $postAuthor; ?></a>
+                by <a href="author_posts.php?author=<?php echo $postAuthor;?>"><?php echo $postAuthor; ?></a>
             </p>
 
             <hr>

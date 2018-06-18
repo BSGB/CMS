@@ -1,6 +1,12 @@
+$(window).load(function(){
+  $('#load-screen').fadeOut('slow', function(){
+    $(this).remove();
+  });
+});
+
 $(document).ready(function() {
-  $('#selectAllBoxes').click(function(event){
-    if($('#selectAllBoxes').is(':checked')){
+  $('#selectAllBoxes').click(function(){
+    if(this.checked){
       $('.checkBoxes').each(function(){
         this.checked = true;
       });
@@ -10,12 +16,4 @@ $(document).ready(function() {
       });
     }
   });
-});
-
-$(document).ready(function() {
-  ClassicEditor
-      .create( document.querySelector( '#body' ) )
-      .catch( error => {
-          console.error( error );
-      } );
 });

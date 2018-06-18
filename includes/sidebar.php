@@ -17,20 +17,38 @@
     </div>
 
     <!-- login form -->
-    <div class="well">
-        <h4>Login</h4>
-        <form class="" action="includes/login.php" method="post">
-          <div class="form-group">
-              <input name="username"type="text" class="form-control" placeholder="Enter Username">
-          </div>
-          <div class="input-group">
-              <input name="password"type="password" class="form-control" placeholder="Enter Password">
-              <span class="input-group-btn">
-                <button type="submit" name="login" class="btn btn-primary">Login</button>
-              </span>
-          </div>
-        </form>
-    </div>
+    <?php
+      if(isset($_SESSION['username'])){
+?>
+<div class="well">
+    <h4>Logged in as <?php echo $_SESSION['username']; ?></h4>
+      <div class="input-group col-xs-12">
+          <a href="includes/logout.php">
+            <button type="submit" name="login" class="btn btn-primary col-xs-12">Logout</button>
+          </a>
+      </div>
+</div>
+<?php
+      } else {
+        ?>
+        <div class="well">
+            <h4>Login</h4>
+            <form class="" action="includes/login.php" method="post">
+              <div class="form-group">
+                  <input name="username"type="text" class="form-control" placeholder="Enter Username">
+              </div>
+              <div class="input-group">
+                  <input name="password"type="password" class="form-control" placeholder="Enter Password">
+                  <span class="input-group-btn">
+                    <button type="submit" name="login" class="btn btn-primary">Login</button>
+                  </span>
+              </div>
+            </form>
+        </div>
+        <?php
+      }
+      ?>
+
 
     <!-- Blog Categories Well -->
     <div class="well">

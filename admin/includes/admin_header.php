@@ -34,6 +34,8 @@ if(!isset($_SESSION['user_role'])){
 
     <script src="js/jquery.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="css/loader.css">
 </head>
 
 <body>
+<div id='load-screen'><div id='loading'></div></div>
