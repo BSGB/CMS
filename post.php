@@ -46,7 +46,7 @@ $postDate = date('l jS F Y', strtotime($postDate));
             <hr>
 
             <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $postDate; ?></p>
+            <p><i class="far fa-clock"></i> Posted on <?php echo $postDate; ?></p>
 
             <hr>
 
@@ -131,9 +131,9 @@ $postDate = date('l jS F Y', strtotime($postDate));
                 $commentDate = date('l jS F Y', strtotime($commentDate));
                 ?>
                 <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
+                    <div class="pull-left" style="font-size:3em;">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
                     <div class="media-body">
                         <h4 class="media-heading"><?php echo $commentAuthor ?>
                             <small><?php echo $commentDate ?></small>

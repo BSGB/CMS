@@ -16,7 +16,7 @@ if(isset($_POST['create_post'])){
   $query = "INSERT INTO posts(post_title, post_author, post_category_id,
     post_status, post_image, post_tags, post_content, post_date, post_views_count) ";
   $query .= "VALUES('{$postTitle}', '{$postAuthor}', '{$postCat}',
-  '{$postStatus}', '{$postImage}', '{$postTags}', '{$postContent}', now()), 0";
+  '{$postStatus}', '{$postImage}', '{$postTags}', '{$postContent}', now(), 0)";
 
   $result = $connection->query($query);
   checkQueryExecution($result);

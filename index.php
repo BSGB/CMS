@@ -61,7 +61,7 @@
       <p class="lead">
         by <a href="author_posts.php?author=<?php echo $postAuthor;?>"><?php echo $postAuthor; ?></a>
       </p>
-      <p><span class="glyphicon glyphicon-time"></span> <?php echo $postDate; ?></p>
+      <p><i class="far fa-clock"></i> <?php echo $postDate; ?></p>
       <hr>
       <a href="post.php?post_id=<?php echo $postId; ?>">
         <img class="img-responsive" src="images/<?php echo $postImage; ?>" alt="">
@@ -69,7 +69,7 @@
       <hr>
       <p><?php echo substr($postContent, 0, 200) . "[...]"; ?></p>
       <a class="btn btn-primary" href="post.php?post_id=<?php echo $postId; ?>">Read More
-        <span class="glyphicon glyphicon-chevron-right"></span>
+        <i class="fas fa-angle-right"></i>
       </a>
 
       <hr>

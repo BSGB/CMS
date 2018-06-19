@@ -8,7 +8,7 @@
               <input name="search"type="text" class="form-control">
               <span class="input-group-btn">
                   <button name="submit" class="btn btn-default" type="submit">
-                      <span class="glyphicon glyphicon-search"></span>
+                      <i class="fas fa-search"></i>
               </button>
               </span>
           </div>
