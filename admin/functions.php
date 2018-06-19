@@ -73,4 +73,47 @@ function updateCategory(){
     header("Location: categories.php");
   }
 }
+
+function usersOnlineAjax(){
+
+  if(isset($_GET['onlineusers'])){
+    global $connection;
+    if(!$connection){
+
+      session_start();
+      include('../includes/db.php');
+
+      $time = time();
+      $timeOutInSeconds = 60;
+      $timeOut = $time - $timeOutInSeconds;
+
+      $query = "SELECT * FROM users_online WHERE time > {$timeOut}";
+      $result = $connection->query($query);
+      echo $count = $result->num_rows;
+    }
+  }
+}
+
+usersOnlineAjax();
+
+function pokeActive(){
+  global $connection;
+  $session = session_id();
+  $time = time();
+  $timeOutInSeconds = 60;
+  $timeOut = $time - $timeOutInSeconds;
+
+  $query = "SELECT * FROM users_online WHERE session = '{$session}'";
+  $result = $connection->query($query);
+  $count = $result->num_rows;
+
+  if($count == NULL) {
+    $query = "INSERT INTO users_online(session, time) VALUES('{$session}', {$time})";
+    $result = $connection->query($query);
+  } else {
+    $query = "UPDATE users_online SET time = {$time} WHERE session = '{$session}'";
+    $result = $connection->query($query);
+  }
+}
+
  ?>

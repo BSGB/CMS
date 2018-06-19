@@ -73,11 +73,6 @@ $postDate = date('l jS F Y', strtotime($postDate));
                 $query .= "VALUES({$postId}, '{$commentAuthor}', '{$commentEmail}', '{$commentContent}', 'unapproved', now())";
                 $result = $connection->query($query);
                 checkQueryExecution($result);
-
-                $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
-                $query .= "WHERE post_id = {$postId}";
-                $result = $connection->query($query);
-                checkQueryExecution($result);
               } else {
                 echo "<p class='bg-danger'>Fields cannot be empty!</p>";
               }

@@ -1,4 +1,5 @@
 <?php include "db.php"; ?>
+<?php include "../admin/functions.php"; ?>
 <?php session_start(); ?>
 <?php
 if(isset($_POST['login'])){
@@ -10,9 +11,7 @@ if(isset($_POST['login'])){
 
   $query = "SELECT * FROM users WHERE username='{$username}' ";
   $result = $connection->query($query);
-  if(!$result){
-    die("QUERY FAILED" . $connection->error());
-  }
+  checkQueryExecution($result);
   while($row = $result->fetch_array()){
     $dbUserId = $row['user_id'];
     $dbUsername = $row['username'];
@@ -22,9 +21,7 @@ if(isset($_POST['login'])){
     $dbUserRole = $row['user_role'];
   }
 
-  $password = crypt($password, $dbUserPassword);
-
-  if ($username === $dbUsername && $password === $dbUserPassword){
+  if (password_verify($password, $dbUserPassword)){
     $_SESSION['username'] = $dbUsername;
     $_SESSION['firstname'] = $dbUserFirstname;
     $_SESSION['lastname'] = $dbUserLastname;

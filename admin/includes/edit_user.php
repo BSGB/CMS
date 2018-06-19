@@ -12,36 +12,49 @@ if(isset($_GET['edit_id'])){
     $userEmail = $row['user_email'];
     $userRole = $row['user_role'];
   }
-}
 
-if(isset($_POST['update_user'])){
-  $username = $_POST['username'];
-  $userPassword = $_POST['user_password'];
-  $userFName = $_POST['user_firstname'];
-  $userLName = $_POST['user_lastname'];
-  $userEmail = $_POST['user_email'];
-  $userRole = $_POST['user_role'];
+  if(isset($_POST['update_user'])){
+    $usernameBis = $_POST['username'];
+    $userPassword = $_POST['user_password'];
+    $userFName = $_POST['user_firstname'];
+    $userLName = $_POST['user_lastname'];
+    $userEmail = $_POST['user_email'];
 
-  $query = "SELECT randSalt FROM users";
-  $result = $connection->query($query);
-  checkQueryExecution($result);
-  $row = $result->fetch_assoc();
-  $salt = $row['randSalt'];
-  $userPassword = crypt($userPassword, $salt);
+    if(!empty($usernameBis)){
+      if(!empty($userPassword)){
+        $userPassword = password_hash($userPassword, PASSWORD_BCRYPT, array('cost' => 12));
 
-  $query = "UPDATE users SET ";
-  $query .= "username = '{$username}', ";
-  $query .= "user_password = '{$userPassword}', ";
-  $query .= "user_firstname = '{$userFName}', ";
-  $query .= "user_lastname = '{$userLName}', ";
-  $query .= "user_email = '{$userEmail}', ";
-  $query .= "user_role = '{$userRole}' ";
-  $query .= "WHERE user_id = {$editId}";
+        $query = "UPDATE users SET ";
+        $query .= "username = '{$usernameBis}', ";
+        $query .= "user_password = '{$userPassword}', ";
+        $query .= "user_firstname = '{$userFName}', ";
+        $query .= "user_lastname = '{$userLName}', ";
+        $query .= "user_email = '{$userEmail}' ";
+        $query .= "WHERE user_id = {$editId}";
 
-  $result = $connection->query($query);
-  checkQueryExecution($result);
-  echo "<p class='bg-success'>User Updated.
-  <a href='users.php'>View Users</a></p>";
+        $result = $connection->query($query);
+        checkQueryExecution($result);
+        echo "<p class='bg-success'>User Updated.
+        <a href='users.php'>View Users</a></p>";
+      } else {
+        $query = "UPDATE users SET ";
+        $query .= "username = '{$usernameBis}', ";
+        $query .= "user_firstname = '{$userFName}', ";
+        $query .= "user_lastname = '{$userLName}', ";
+        $query .= "user_email = '{$userEmail}' ";
+        $query .= "WHERE user_id = {$editId}";
+
+        $result = $connection->query($query);
+        checkQueryExecution($result);
+        echo "<p class='bg-success'>User Updated.
+        <a href='users.php'>View Users</a></p>";
+      }
+    } else {
+      echo "<p class='bg-danger'>Username cannot be empty.</p>";
+    }
+  }
+} else {
+  header('Location: index.php');
 }
  ?>
 
@@ -74,25 +87,7 @@ if(isset($_POST['update_user'])){
 
    <div class="form-group">
      <label for="user_password">Password</label>
-     <input type="password" name="user_password" class="form-control" value="<?php echo $userPassword; ?>">
-   </div>
-
-   <div class="form-group">
-     <label for="user_role">User Role</label>
-     <select name="user_role" class="form-control">
-       <?php
-        if($userRole == "subscriber"){
-          echo "<option value='subscriber' selected>Subscriber</option>";
-        } else {
-          echo "<option value='subscriber'>Subscriber</option>";
-        }
-        if($userRole == "admin"){
-          echo "<option value='admin' selected>Admin</option>";
-        } else {
-          echo "<option value='admin'>Admin</option>";
-        }
-       ?>
-     </select>
+     <input autocomplete="off" type="password" name="user_password" class="form-control">
    </div>
 
   <div class="form-group">

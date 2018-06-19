@@ -12,15 +12,7 @@ if(isset($_POST['submit'])){
     $email = $connection->real_escape_string($email);
     $password = $connection->real_escape_string($password);
 
-    $query = "SELECT randSalt FROM users";
-    $result = $connection->query($query);
-
-    checkQueryExecution($result);
-
-    $row = $result->fetch_assoc();
-    $salt = $row['randSalt'];
-
-    $password = crypt($password, $salt);
+    $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
     $query = "INSERT INTO users (username, user_email, user_password, user_role, user_date) ";
     $query .= "VALUES ('{$username}', '{$email}', '{$password}', 'subscriber', now())";

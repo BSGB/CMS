@@ -1,44 +1,4 @@
 <?php include 'includes/admin_header.php' ?>
-<?php
-if(isset($_SESSION['username'])){
-  $username = $_SESSION['username'];
-
-  $query = "SELECT * FROM users WHERE username = '{$username}'";
-  $result = $connection->query($query);
-  checkQueryExecution($result);
-
-  while($row = $result->fetch_assoc()){
-    $username = $row['username'];
-    $userPassword = $row['user_password'];
-    $userFName = $row['user_firstname'];
-    $userLName = $row['user_lastname'];
-    $userEmail = $row['user_email'];
-    $userRole = $row['user_role'];
-  }
-}
-
-if(isset($_POST['update_profile'])){
-  $usernameBis = $_POST['username'];
-  $userPassword = $_POST['user_password'];
-  $userFName = $_POST['user_firstname'];
-  $userLName = $_POST['user_lastname'];
-  $userEmail = $_POST['user_email'];
-  $userRole = $_POST['user_role'];
-
-  $query = "UPDATE users SET ";
-  $query .= "username = '{$usernameBis}', ";
-  $query .= "user_password = '{$userPassword}', ";
-  $query .= "user_firstname = '{$userFName}', ";
-  $query .= "user_lastname = '{$userLName}', ";
-  $query .= "user_email = '{$userEmail}', ";
-  $query .= "user_role = '{$userRole}' ";
-  $query .= "WHERE username = '{$username}'";
-
-  $result = $connection->query($query);
-  checkQueryExecution($result);
-  header("Location: profile.php");
-}
-?>
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -55,6 +15,65 @@ if(isset($_POST['update_profile'])){
                             Welcome to Admin
                             <small><?php echo $_SESSION['username'] ?></small>
                         </h1>
+                        <?php
+                        if(isset($_SESSION['username'])){
+                          $username = $_SESSION['username'];
+
+                          $query = "SELECT * FROM users WHERE username = '{$username}'";
+                          $result = $connection->query($query);
+                          checkQueryExecution($result);
+
+                          while($row = $result->fetch_assoc()){
+                            $username = $row['username'];
+                            $userPassword = $row['user_password'];
+                            $userFName = $row['user_firstname'];
+                            $userLName = $row['user_lastname'];
+                            $userEmail = $row['user_email'];
+                            $userRole = $row['user_role'];
+                          }
+
+                        if(isset($_POST['update_profile'])){
+                          $usernameBis = $_POST['username'];
+                          $userPassword = $_POST['user_password'];
+                          $userFName = $_POST['user_firstname'];
+                          $userLName = $_POST['user_lastname'];
+                          $userEmail = $_POST['user_email'];
+
+                          if(!empty($usernameBis)){
+                            if(!empty($userPassword)){
+                              $userPassword = password_hash($userPassword, PASSWORD_BCRYPT, array('cost' => 12));
+
+                              $query = "UPDATE users SET ";
+                              $query .= "username = '{$usernameBis}', ";
+                              $query .= "user_password = '{$userPassword}', ";
+                              $query .= "user_firstname = '{$userFName}', ";
+                              $query .= "user_lastname = '{$userLName}', ";
+                              $query .= "user_email = '{$userEmail}' ";
+                              $query .= "WHERE username = '{$username}'";
+
+                              $result = $connection->query($query);
+                              checkQueryExecution($result);
+                              echo "<p class='bg-success'>Profile Updated.</p>";
+                            } else {
+                              $query = "UPDATE users SET ";
+                              $query .= "username = '{$usernameBis}', ";
+                              $query .= "user_firstname = '{$userFName}', ";
+                              $query .= "user_lastname = '{$userLName}', ";
+                              $query .= "user_email = '{$userEmail}' ";
+                              $query .= "WHERE username = '{$username}'";
+
+                              $result = $connection->query($query);
+                              checkQueryExecution($result);
+                              echo "<p class='bg-success'>Profile Updated.</p>";
+                            }
+                          } else {
+                            echo "<p class='bg-danger'>Username cannot be empty.</p>";
+                          }
+                        }
+                      } else {
+                          header('Location: index.php');
+                        }
+                        ?>
                         <form class="" action="" method="post" enctype="multipart/form-data">
 
                           <div class="form-group">
@@ -84,25 +103,7 @@ if(isset($_POST['update_profile'])){
 
                           <div class="form-group">
                             <label for="user_password">Password</label>
-                            <input type="password" name="user_password" class="form-control" value="<?php echo $userPassword; ?>">
-                          </div>
-
-                          <div class="form-group">
-                            <label for="user_role">User Role</label>
-                            <select name="user_role" class="form-control">
-                              <?php
-                               if($userRole == "subscriber"){
-                                 echo "<option value='subscriber' selected>Subscriber</option>";
-                               } else {
-                                 echo "<option value='subscriber'>Subscriber</option>";
-                               }
-                               if($userRole == "admin"){
-                                 echo "<option value='admin' selected>Admin</option>";
-                               } else {
-                                 echo "<option value='admin'>Admin</option>";
-                               }
-                              ?>
-                            </select>
+                            <input autocomplete="off" type="password" name="user_password" class="form-control">
                           </div>
 
                          <div class="form-group">

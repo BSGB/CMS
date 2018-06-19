@@ -1,3 +1,4 @@
+<?php pokeActive(); ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -11,6 +12,7 @@
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
+      <li><a href="">Users Online: <span class="usersOnline"></span></a></li>
       <li><a href="../index.php">Main</a></li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
@@ -36,10 +38,10 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li>
-                <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                <a href="index.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
             </li>
             <li>
-              <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
+              <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fas fa-arrows-alt-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="posts_dropdown" class="collapse">
                 <li>
                   <a href="posts.php"> View All Posts</a>
@@ -56,7 +58,7 @@
                 <a href="comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
             </li>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#users_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#users_dropdown"><i class="fas fa-arrows-alt-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="users_dropdown" class="collapse">
                     <li>
                         <a href="users.php"> View All Users</a>
@@ -67,7 +69,7 @@
                 </ul>
             </li>
             <li>
-                <a href="profile.php"><i class="fa fa-fw fa-dashboard"></i> Profile</a>
+                <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
             </li>
         </ul>
     </div>

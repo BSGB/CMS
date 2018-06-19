@@ -7,16 +7,21 @@ if(isset($_POST['create_user'])){
   $userPassword = $_POST['user_password'];
   $userRole = $_POST['user_role'];
 
-  $query = "INSERT INTO users(username, user_password, user_firstname, user_lastname,
-    user_email, user_role, user_date)";
-  $query .= "VALUES('{$username}', '{$userPassword}', '{$userFName}',
-  '{$userLName}', '{$userEmail}', '{$userRole}', now())";
+  if(!empty($username) && !empty($userPassword)){
+    $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+    $query = "INSERT INTO users(username, user_password, user_firstname, user_lastname,
+      user_email, user_role, user_date)";
+    $query .= "VALUES('{$username}', '{$userPassword}', '{$userFName}',
+    '{$userLName}', '{$userEmail}', '{$userRole}', now())";
 
-  $result = $connection->query($query);
-  checkQueryExecution($result);
-  echo "<p class='bg-success'>User Created.
-  <a href='users.php'>View Users</a>
-  </p>";
+    $result = $connection->query($query);
+    checkQueryExecution($result);
+    echo "<p class='bg-success'>User Created.
+    <a href='users.php'>View Users</a>
+    </p>";
+  } else {
+    echo "<p class='bg-danger'><i class='fas fa-asterisk'></i>Fields cannot be empty.</p>";
+  }
 }
  ?>
 
@@ -38,7 +43,7 @@ if(isset($_POST['create_user'])){
   </div> -->
 
   <div class="form-group">
-    <label for="username">Username</label>
+    <label for="username">Username<i class="fas fa-asterisk"></i></label>
     <input type="text" name="username" class="form-control">
   </div>
 
@@ -48,7 +53,7 @@ if(isset($_POST['create_user'])){
   </div>
 
   <div class="form-group">
-    <label for="user_password">Password</label>
+    <label for="user_password">Password<i class="fas fa-asterisk"></i></label>
     <input type="password" name="user_password" class="form-control">
   </div>
 

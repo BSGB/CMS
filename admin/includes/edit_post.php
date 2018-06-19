@@ -14,7 +14,6 @@ if(isset($_GET['edit_id'])){
 
     $postTags = $row['post_tags'];
     $postContent = $row['post_content'];
-    $postCount = $row['post_comment_count'];
   }
 }
 
