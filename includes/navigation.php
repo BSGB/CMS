@@ -27,6 +27,10 @@
                <li>
                    <a href="registration.php">Register</a>
                </li>
+
+               <li>
+                   <a href="contact.php">Contact</a>
+               </li>
                 <li>
                     <a href="admin/index.php">Admin</a>
                 </li>

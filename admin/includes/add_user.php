@@ -1,24 +1,30 @@
 <?php
 if(isset($_POST['create_user'])){
-  $userFName = $_POST['user_firstname'];
-  $userLName = $_POST['user_lastname'];
-  $username = $_POST['username'];
-  $userEmail = $_POST['user_email'];
-  $userPassword = $_POST['user_password'];
-  $userRole = $_POST['user_role'];
+
+  $userFName = escape($_POST['user_firstname']);
+  $userLName = escape($_POST['user_lastname']);
+  $username = escape($_POST['username']);
+  $userEmail = escape($_POST['user_email']);
+  $userPassword = escape($_POST['user_password']);
+  $userRole = escape($_POST['user_role']);
 
   if(!empty($username) && !empty($userPassword)){
-    $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
-    $query = "INSERT INTO users(username, user_password, user_firstname, user_lastname,
-      user_email, user_role, user_date)";
-    $query .= "VALUES('{$username}', '{$userPassword}', '{$userFName}',
-    '{$userLName}', '{$userEmail}', '{$userRole}', now())";
-
+    $query = "SELECT * FROM users WHERE username = '{$username}'";
     $result = $connection->query($query);
-    checkQueryExecution($result);
-    echo "<p class='bg-success'>User Created.
-    <a href='users.php'>View Users</a>
-    </p>";
+    $user = $result->num_rows;
+    if($user == 0){
+      $userPassword = password_hash($userPassword, PASSWORD_BCRYPT, array('cost' => 12));
+      $query = "INSERT INTO users(username, user_password, user_firstname, user_lastname,
+      user_email, user_role, user_date)";
+      $query .= "VALUES('{$username}', '{$userPassword}', '{$userFName}',
+      '{$userLName}', '{$userEmail}', '{$userRole}', now())";
+      $result = $connection->query($query);
+      echo "<p class='bg-success'>User Created.
+      <a href='users.php'>View Users</a>
+      </p>";
+    } else {
+    echo "<p class='bg-danger'>User already exists.</p>";
+    }
   } else {
     echo "<p class='bg-danger'><i class='fas fa-asterisk'></i>Fields cannot be empty.</p>";
   }

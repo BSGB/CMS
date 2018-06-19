@@ -3,7 +3,6 @@
     <tr>
       <th>Id</th>
       <th>Username</th>
-      <th>Image</th>
       <th>Firstname</th>
       <th>Lastname</th>
       <th>Email</th>
@@ -23,7 +22,6 @@
       $userFName = $row['user_firstname'];
       $userLName = $row['user_lastname'];
       $userEmail = $row['user_email'];
-      $userImage = $row['user_image'];
       $userRole = $row['user_role'];
       $userCrt = $row['user_date'];
 
@@ -31,7 +29,6 @@
       echo "<tr>";
       echo "<td>{$userId}</td>";
       echo "<td>{$username}</td>";
-      echo "<td>{$userImage}</td>";
       echo "<td>{$userFName}</td>";
       echo "<td>{$userLName}</td>";
       echo "<td>{$userEmail}</td>";

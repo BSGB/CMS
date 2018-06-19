@@ -1,22 +1,22 @@
 <?php
 if(isset($_POST['create_post'])){
-  $postTitle = $_POST['post_title'];
-  $postAuthor = $_POST['post_author'];
-  $postCat = $_POST['post_category'];
-  $postStatus = $_POST['post_status'];
+  $postTitle = $connection->real_escape_string($_POST['post_title']);
+  $postAuthor = $connection->real_escape_string($_POST['post_author']);
+  $postCat = $connection->real_escape_string($_POST['post_category']);
+  $postStatus = $connection->real_escape_string($_POST['post_status']);
 
-  $postImage = $_FILES['post_image']['name'];
+  $postImage = $connection->real_escape_string($_FILES['post_image']['name']);
   $postImageTemp = $_FILES['post_image']['tmp_name'];
 
-  $postTags = $_POST['post_tags'];
-  $postContent = $_POST['post_content'];
+  $postTags = $connection->real_escape_string($_POST['post_tags']);
+  $postContent = $connection->real_escape_string($_POST['post_content']);
 
   move_uploaded_file($postImageTemp, "../images/{$postImage}");
 
   $query = "INSERT INTO posts(post_title, post_author, post_category_id,
-    post_status, post_image, post_tags, post_content, post_date) ";
-  $query .= "VALUES('{$postTitle}', '{$postAuthor}', {$postCat},
-  '{$postStatus}', '{$postImage}', '{$postTags}', '{$postContent}', now())";
+    post_status, post_image, post_tags, post_content, post_date, post_views_count) ";
+  $query .= "VALUES('{$postTitle}', '{$postAuthor}', '{$postCat}',
+  '{$postStatus}', '{$postImage}', '{$postTags}', '{$postContent}', now()), 0";
 
   $result = $connection->query($query);
   checkQueryExecution($result);
@@ -54,7 +54,7 @@ if(isset($_POST['create_post'])){
 
   <div class="form-group">
     <label for="post_author">Author</label>
-    <input type="text" name="post_author" class="form-control">
+    <input readonly="true" type="text" name="post_author" class="form-control" value="<?php echo $_SESSION['username']; ?>">
   </div>
 
   <div class="form-group">

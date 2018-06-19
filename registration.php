@@ -8,20 +8,30 @@ if(isset($_POST['submit'])){
   $password = $_POST['password'];
 
   if(!empty($username) && !empty($email) && !empty($password)){
-    $username = $connection->real_escape_string($username);
-    $email = $connection->real_escape_string($email);
-    $password = $connection->real_escape_string($password);
+    $username = escape($username);
+    $email = escape($email);
+    $password = escape($password);
 
-    $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
-
-    $query = "INSERT INTO users (username, user_email, user_password, user_role, user_date) ";
-    $query .= "VALUES ('{$username}', '{$email}', '{$password}', 'subscriber', now())";
+    $query = "SELECT * FROM users WHERE username = '{$username}'";
     $result = $connection->query($query);
+    $user = $result->num_rows;
 
-    if(!$result){
-      die("QUERY FAILED" . $connection->error());
+    if($user == 0){
+
+     $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+     $query = "INSERT INTO users (username, user_email, user_password, user_role, user_date) ";
+     $query .= "VALUES ('{$username}', '{$email}', '{$password}', 'subscriber', now())";
+     $result = $connection->query($query);
+
+     if(!$result){
+       die("QUERY FAILED" . $connection->error());
+     }
+     $message = "<p class='text-center bg-success'>Your registration has been submited.</p>";
+    } else {
+    $message = "<p class='text-center bg-danger'>User already exists.</p>";
     }
-    $message = "<p class='text-center bg-success'>Your registration has been submited.</p>";
+
   } else {
     $message = "<p class='text-center bg-danger'>Fields cannot be empty!</p>";
   }

@@ -19,10 +19,12 @@ if(isset($_POST['login'])){
     $dbUserFirstname = $row['user_firstname'];
     $dbUserLastname = $row['user_lastname'];
     $dbUserRole = $row['user_role'];
+    $dbUserEmail = $row['user_email'];
   }
 
   if (password_verify($password, $dbUserPassword)){
     $_SESSION['username'] = $dbUsername;
+    $_SESSION['user_email'] = $dbUserEmail;
     $_SESSION['firstname'] = $dbUserFirstname;
     $_SESSION['lastname'] = $dbUserLastname;
     $_SESSION['user_role'] = $dbUserRole;

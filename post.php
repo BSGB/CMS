@@ -5,7 +5,7 @@
 
 <?php
 if(isset($_GET['post_id'])){
-  $postId = $_GET['post_id'];
+  $postId = escape($_GET['post_id']);
   $query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = {$postId}";
   $result = $connection->query($query);
   checkQueryExecution($result);
@@ -64,13 +64,18 @@ $postDate = date('l jS F Y', strtotime($postDate));
 
             <?php
             if(isset($_POST['create_comment'])){
-              $commentAuthor = $_POST['comment_author'];
-              $commentEmail = $_POST['comment_email'];
-              $commentContent = $_POST['comment_content'];
+              $commentAuthor = escape($_POST['comment_author']);
+              $commentEmail = escape($_POST['comment_email']);
+              $commentContent = escape($_POST['comment_content']);
 
               if(!empty($commentAuthor) && !empty($commentEmail) && !empty($commentContent)){
+                if(isset($_SESSION['user_role'])){
+                  $status = 'approved';
+                } else {
+                  $status = 'unapproved';
+                }
                 $query = "INSERT INTO comments(comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
-                $query .= "VALUES({$postId}, '{$commentAuthor}', '{$commentEmail}', '{$commentContent}', 'unapproved', now())";
+                $query .= "VALUES({$postId}, '{$commentAuthor}', '{$commentEmail}', '{$commentContent}', '{$status}', now())";
                 $result = $connection->query($query);
                 checkQueryExecution($result);
               } else {
@@ -86,11 +91,23 @@ $postDate = date('l jS F Y', strtotime($postDate));
                 <form role="form" method="POST" action="">
                     <div class="form-group">
                         <label for="comment_author">Author</label>
-                        <input type="text" class="form-control" name="comment_author">
+                        <?php
+                        if(isset($_SESSION['username'])){
+                          echo "<input readonly = 'true' type='text' class='form-control' name='comment_author' value='{$_SESSION['username']}'>";
+                        } else {
+                          echo "<input type='text' class='form-control' name='comment_author'>";
+                        }
+                        ?>
                     </div>
                     <div class="form-group">
                         <label for="comment_email">E-mail</label>
-                        <input type="email" class="form-control" name="comment_email">
+                        <?php
+                        if(isset($_SESSION['user_email'])){
+                          echo "<input readonly = 'true' type='email' class='form-control' name='comment_email' value='{$_SESSION['user_email']}'>";
+                        } else {
+                          echo "<input type='email' class='form-control' name='comment_email'>";
+                        }
+                        ?>
                     </div>
                     <div class="form-group">
                         <label for="comment_content">Comment</label>

@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET['edit_id'])){
-  $editId = $_GET['edit_id'];
+  $editId = $connection->real_escape_string($_GET['edit_id']);
   $query = "SELECT * FROM users WHERE user_id = '{$editId}'";
   $result = $connection->query($query);
   checkQueryExecution($result);
@@ -50,7 +50,7 @@ if(isset($_GET['edit_id'])){
         <a href='users.php'>View Users</a></p>";
       }
     } else {
-      echo "<p class='bg-danger'>Username cannot be empty.</p>";
+      echo "<p class='bg-danger'><i class='fas fa-asterisk'></i>Fields cannot be empty.</p>";
     }
   }
 } else {
@@ -76,7 +76,7 @@ if(isset($_GET['edit_id'])){
    </div> -->
 
    <div class="form-group">
-     <label for="username">Username</label>
+     <label for="username"><i class='fas fa-asterisk'></i>Username</label>
      <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
    </div>
 

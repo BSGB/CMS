@@ -2,7 +2,7 @@
 function checkQueryExecution($result){
   global $connection;
   if(!$result){
-    die("QUERY FAILED: " . $connection->error());
+    die("QUERY FAILED: " . $connection->error);
   }
 }
 
@@ -116,4 +116,8 @@ function pokeActive(){
   }
 }
 
+function escape($string){
+  global $connection;
+  return $connection->real_escape_string(trim($string));
+}
  ?>
